@@ -6,7 +6,7 @@ public class CircularBuffer {
     int head = 0;  // Tracks where to remove from
     int tail = 0;  // Tracks where to add to
 
-    boolean isEmpty = true;
+    int stored = 0;
 
 
     public CircularBuffer(int capacity) {
@@ -22,41 +22,29 @@ public class CircularBuffer {
         buffer[tail] = item;
         incrementTail();
 
-        isEmpty = false;
+        if(stored < buffer.length) {
+            stored++;
+        }
     }
 
 
     public String remove() {
         String removedItem = buffer[head];
         incrementHead();
-        isEmpty = head == tail;
+        stored--;
 
         return removedItem;
     }
 
 
     public int stored() {
-        int stored = 0;
-
-        if(isEmpty) {
-            return 0;
-        }
-
-        if(head == tail) {
-            return buffer.length;
-        }
-
-        if( tail < head ) {
-            return (buffer.length + tail) - head;
-        }
-
-        return tail - head;
+        return stored;
     }
 
 
-    public boolean isEmpty() {
-        return isEmpty;
-    }
+//    public boolean isEmpty() {
+//        return stored == 0;
+//    }
 
 
     protected void incrementHead() {
@@ -65,7 +53,7 @@ public class CircularBuffer {
 
 
     protected void incrementTail() {
-        if(!isEmpty && (tail == head) ) {
+        if((stored > 0) && (tail == head) ) {
             incrementHead();
         }
 

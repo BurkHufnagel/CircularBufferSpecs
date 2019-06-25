@@ -51,8 +51,7 @@ class CircularBufferSpecs extends Specification {
 
     def "when an item is added to an empty CicrularBuffer and then removed it should match the original item"() {
         given: "a new CircularBuffer that can hold eight Strings"
-        def bufferSize = 8
-        def buffer = new CircularBuffer(bufferSize)
+        def buffer = new CircularBuffer(8)
 
         and: "an item is added"
         def item = "To bodly go"
@@ -68,8 +67,7 @@ class CircularBufferSpecs extends Specification {
 
     def "when seven items are added to a CicrularBuffer that holds five items then it should contain the last five items added"() {
         given: "a new CircularBuffer that can hold five Strings"
-        def bufferSize = 5
-        def buffer = new CircularBuffer(bufferSize)
+        def buffer = new CircularBuffer(5)
 
         and: "and seven items are added"
         buffer.add("one")
@@ -88,7 +86,6 @@ class CircularBufferSpecs extends Specification {
         def removedItem5 = buffer.remove()
 
         then: "the buffer shoud be empty"
-
         def stored = buffer.stored()
         stored == 0
 
